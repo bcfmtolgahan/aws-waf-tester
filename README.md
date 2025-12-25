@@ -14,7 +14,7 @@ A framework for developing, deploying, and testing AWS WAF rules with 500+ real-
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/bcfmtolgahan/aws-waf-tester.git
 cd aws-waf-tester
 
 # Install dependencies
