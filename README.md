@@ -326,14 +326,3 @@ Unauthorized use is **illegal** and may result in serious legal consequences.
 4. Push to the branch (`git push origin feature/new-rule`)
 5. Create a Pull Request
 
-## License
-
-MIT License - See LICENSE file for details.
-
-## Contact
-
-Open an issue for questions or suggestions.
-
----
-
-**Security is a process, not a product. Test, learn, improve.**
