@@ -1,0 +1,19 @@
+{
+  "Name": "OverlongUTF8PathTraversal",
+  "Priority": 122,
+  "Statement": {
+    "RegexMatchStatement": {
+      "RegexString": "%[cC]0%[aA][eE]|%[eE]0%80%[aA][eE]",
+      "FieldToMatch": {"UriPath": {}},
+      "TextTransformations": [
+        {"Priority": 0, "Type": "NONE"}
+      ]
+    }
+  },
+  "Action": {"Block": {}},
+  "VisibilityConfig": {
+    "SampledRequestsEnabled": true,
+    "CloudWatchMetricsEnabled": true,
+    "MetricName": "OverlongUTF8"
+  }
+}

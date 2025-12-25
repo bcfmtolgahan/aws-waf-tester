@@ -1,0 +1,46 @@
+{
+  "Name": "ObfuscatedSQLInjection",
+  "Priority": 130,
+  "Statement": {
+    "OrStatement": {
+      "Statements": [
+        {
+          "RegexMatchStatement": {
+            "RegexString": "union.*select",
+            "FieldToMatch": {"QueryString": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"},
+              {"Priority": 1, "Type": "LOWERCASE"}
+            ]
+          }
+        },
+        {
+          "RegexMatchStatement": {
+            "RegexString": "concat|char|benchmark",
+            "FieldToMatch": {"QueryString": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"},
+              {"Priority": 1, "Type": "LOWERCASE"}
+            ]
+          }
+        },
+        {
+          "RegexMatchStatement": {
+            "RegexString": "sleep|waitfor",
+            "FieldToMatch": {"QueryString": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"},
+              {"Priority": 1, "Type": "LOWERCASE"}
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "Action": {"Block": {}},
+  "VisibilityConfig": {
+    "SampledRequestsEnabled": true,
+    "CloudWatchMetricsEnabled": true,
+    "MetricName": "ObfuscatedSQLi"
+  }
+}

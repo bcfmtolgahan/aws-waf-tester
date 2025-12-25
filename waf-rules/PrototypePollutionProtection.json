@@ -1,0 +1,19 @@
+{
+  "Name": "PrototypePollutionProtection",
+  "Priority": 110,
+  "Statement": {
+    "RegexMatchStatement": {
+      "RegexString": "__proto__|constructor\\.prototype",
+      "FieldToMatch": {"Body": {"OversizeHandling": "CONTINUE"}},
+      "TextTransformations": [
+        {"Priority": 0, "Type": "LOWERCASE"}
+      ]
+    }
+  },
+  "Action": {"Block": {}},
+  "VisibilityConfig": {
+    "SampledRequestsEnabled": true,
+    "CloudWatchMetricsEnabled": true,
+    "MetricName": "PrototypePollution"
+  }
+}

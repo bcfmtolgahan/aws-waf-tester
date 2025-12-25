@@ -1,0 +1,21 @@
+{
+  "Name": "BlockZipSlipMarkers",
+  "Priority": 15,
+  "Statement": {
+    "RegexMatchStatement": {
+      "RegexString": "(\\.\\./|\\.\\.\\\\).*(\\.zip|\\.tar|\\.gz|\\.tgz|\\.jar)",
+      "FieldToMatch": { "Body": { "OversizeHandling": "CONTINUE" } },
+      "TextTransformations": [
+        { "Priority": 0, "Type": "URL_DECODE" },
+        { "Priority": 1, "Type": "URL_DECODE_UNI" },
+        { "Priority": 2, "Type": "LOWERCASE" }
+      ]
+    }
+  },
+  "Action": { "Block": {} },
+  "VisibilityConfig": {
+    "SampledRequestsEnabled": true,
+    "CloudWatchMetricsEnabled": true,
+    "MetricName": "BlockZipSlipMarkers"
+  }
+}

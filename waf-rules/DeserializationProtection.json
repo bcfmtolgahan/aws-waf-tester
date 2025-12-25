@@ -1,0 +1,44 @@
+{
+  "Name": "DeserializationProtection",
+  "Priority": 118,
+  "Statement": {
+    "OrStatement": {
+      "Statements": [
+        {
+          "RegexMatchStatement": {
+            "RegexString": "(O:\\d+:|a:\\d+:|s:\\d+:|i:\\d+;)",
+            "FieldToMatch": {"Body": {"OversizeHandling": "CONTINUE"}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"}
+            ]
+          }
+        },
+        {
+          "RegexMatchStatement": {
+            "RegexString": "(rO0AB|aced0005|java\\.lang\\.|org\\.apache\\.)",
+            "FieldToMatch": {"Body": {"OversizeHandling": "CONTINUE"}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "NONE"}
+            ]
+          }
+        },
+        {
+          "ByteMatchStatement": {
+            "SearchString": "__reduce__",
+            "FieldToMatch": {"Body": {"OversizeHandling": "CONTINUE"}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "NONE"}
+            ],
+            "PositionalConstraint": "CONTAINS"
+          }
+        }
+      ]
+    }
+  },
+  "Action": {"Block": {}},
+  "VisibilityConfig": {
+    "SampledRequestsEnabled": true,
+    "CloudWatchMetricsEnabled": true,
+    "MetricName": "DeserializationAttack"
+  }
+}

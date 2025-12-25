@@ -1,0 +1,35 @@
+{
+  "Name": "AdvancedCommandInjection",
+  "Priority": 102,
+  "Statement": {
+    "OrStatement": {
+      "Statements": [
+        {
+          "RegexMatchStatement": {
+            "RegexString": "wget|curl",
+            "FieldToMatch": {"QueryString": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"},
+              {"Priority": 1, "Type": "LOWERCASE"}
+            ]
+          }
+        },
+        {
+          "RegexMatchStatement": {
+            "RegexString": "bash|/bin/",
+            "FieldToMatch": {"QueryString": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"}
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "Action": {"Block": {}},
+  "VisibilityConfig": {
+    "SampledRequestsEnabled": true,
+    "CloudWatchMetricsEnabled": true,
+    "MetricName": "AdvancedCMDi"
+  }
+}

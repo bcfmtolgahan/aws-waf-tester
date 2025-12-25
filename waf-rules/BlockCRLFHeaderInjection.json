@@ -1,0 +1,21 @@
+{
+  "Name": "BlockCRLFHeaderInjection",
+  "Priority": 13,
+  "Statement": {
+    "RegexMatchStatement": {
+      "RegexString": "(%0d%0a|%0a%0d|\\r\\n|\\n\\r|%5cr%5cn)",
+      "FieldToMatch": { "QueryString": {} },
+      "TextTransformations": [
+        { "Priority": 0, "Type": "URL_DECODE" },
+        { "Priority": 1, "Type": "URL_DECODE_UNI" },
+        { "Priority": 2, "Type": "LOWERCASE" }
+      ]
+    }
+  },
+  "Action": { "Block": {} },
+  "VisibilityConfig": {
+    "SampledRequestsEnabled": true,
+    "CloudWatchMetricsEnabled": true,
+    "MetricName": "BlockCRLFHeaderInjection"
+  }
+}

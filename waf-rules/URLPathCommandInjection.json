@@ -1,0 +1,19 @@
+{
+  "Name": "URLPathCommandInjection",
+  "Priority": 124,
+  "Statement": {
+    "RegexMatchStatement": {
+      "RegexString": "%3[bB]|%7[cC]|%26|%24|%60",
+      "FieldToMatch": { "UriPath": {} },
+      "TextTransformations": [
+        { "Priority": 0, "Type": "NONE" }
+      ]
+    }
+  },
+  "Action": { "Block": {} },
+  "VisibilityConfig": {
+    "SampledRequestsEnabled": true,
+    "CloudWatchMetricsEnabled": true,
+    "MetricName": "PathCMDi"
+  }
+}

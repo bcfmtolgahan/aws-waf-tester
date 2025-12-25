@@ -1,0 +1,21 @@
+{
+  "Name": "BlockObviousSQLiInJson",
+  "Priority": 16,
+  "Statement": {
+    "RegexMatchStatement": {
+      "RegexString": "(union\\s+select|or\\s+1\\s*=\\s*1|and\\s+1\\s*=\\s*1|sleep\\s*\\(|benchmark\\s*\\(|--\\s|/\\*.*\\*/)",
+      "FieldToMatch": { "Body": { "OversizeHandling": "CONTINUE" } },
+      "TextTransformations": [
+        { "Priority": 0, "Type": "URL_DECODE" },
+        { "Priority": 1, "Type": "URL_DECODE_UNI" },
+        { "Priority": 2, "Type": "LOWERCASE" }
+      ]
+    }
+  },
+  "Action": { "Block": {} },
+  "VisibilityConfig": {
+    "SampledRequestsEnabled": true,
+    "CloudWatchMetricsEnabled": true,
+    "MetricName": "BlockObviousSQLiInJson"
+  }
+}

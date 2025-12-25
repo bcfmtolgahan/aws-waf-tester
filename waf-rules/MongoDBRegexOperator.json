@@ -1,0 +1,19 @@
+{
+  "Name": "MongoDBRegexOperator",
+  "Priority": 123,
+  "Statement": {
+    "RegexMatchStatement": {
+      "RegexString": "\\[\\$regex\\]|\\$regex",
+      "FieldToMatch": {"QueryString": {}},
+      "TextTransformations": [
+        {"Priority": 0, "Type": "URL_DECODE"}
+      ]
+    }
+  },
+  "Action": {"Block": {}},
+  "VisibilityConfig": {
+    "SampledRequestsEnabled": true,
+    "CloudWatchMetricsEnabled": true,
+    "MetricName": "MongoRegex"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "Name": "SSTIProtection",
+  "Priority": 112,
+  "Statement": {
+    "OrStatement": {
+      "Statements": [
+        {
+          "RegexMatchStatement": {
+            "RegexString": "\\{\\{.*\\}\\}",
+            "FieldToMatch": {"AllQueryArguments": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"}
+            ]
+          }
+        },
+        {
+          "RegexMatchStatement": {
+            "RegexString": "\\{%.*%\\}",
+            "FieldToMatch": {"AllQueryArguments": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"}
+            ]
+          }
+        },
+        {
+          "RegexMatchStatement": {
+            "RegexString": "import|constructor",
+            "FieldToMatch": {"AllQueryArguments": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"},
+              {"Priority": 1, "Type": "LOWERCASE"}
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "Action": {"Block": {}},
+  "VisibilityConfig": {
+    "SampledRequestsEnabled": true,
+    "CloudWatchMetricsEnabled": true,
+    "MetricName": "SSTIAttacks"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "Name": "BlockTraversalMultiDecode",
+  "Priority": 14,
+  "Statement": {
+    "RegexMatchStatement": {
+      "RegexString": "(\\.\\./|\\.\\.\\\\|%2e%2e%2f|%2e%2e%5c)",
+      "FieldToMatch": { "UriPath": {} },
+      "TextTransformations": [
+        { "Priority": 0, "Type": "URL_DECODE" },
+        { "Priority": 1, "Type": "URL_DECODE_UNI" },
+        { "Priority": 2, "Type": "URL_DECODE" },
+        { "Priority": 3, "Type": "LOWERCASE" }
+      ]
+    }
+  },
+  "Action": { "Block": {} },
+  "VisibilityConfig": {
+    "SampledRequestsEnabled": true,
+    "CloudWatchMetricsEnabled": true,
+    "MetricName": "BlockTraversalMultiDecode"
+  }
+}

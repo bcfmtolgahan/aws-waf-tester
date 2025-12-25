@@ -1,0 +1,43 @@
+{
+  "Name": "NoSQLInjectionProtection",
+  "Priority": 107,
+  "Statement": {
+    "OrStatement": {
+      "Statements": [
+        {
+          "RegexMatchStatement": {
+            "RegexString": "\\$where",
+            "FieldToMatch": {"Body": {"OversizeHandling": "CONTINUE"}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "NONE"}
+            ]
+          }
+        },
+        {
+          "RegexMatchStatement": {
+            "RegexString": "\\$ne|\\$gt|\\$lt",
+            "FieldToMatch": {"Body": {"OversizeHandling": "CONTINUE"}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "NONE"}
+            ]
+          }
+        },
+        {
+          "RegexMatchStatement": {
+            "RegexString": "\\$regex|\\$or|\\$and",
+            "FieldToMatch": {"Body": {"OversizeHandling": "CONTINUE"}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "NONE"}
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "Action": {"Block": {}},
+  "VisibilityConfig": {
+    "SampledRequestsEnabled": true,
+    "CloudWatchMetricsEnabled": true,
+    "MetricName": "NoSQLInjection"
+  }
+}

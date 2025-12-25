@@ -1,0 +1,124 @@
+{
+  "Name": "AdvancedXSSProtection",
+  "Priority": 104,
+  "Statement": {
+    "OrStatement": {
+      "Statements": [
+        {
+          "RegexMatchStatement": {
+            "RegexString": "on\\w+\\s*=",
+            "FieldToMatch": {"AllQueryArguments": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"},
+              {"Priority": 1, "Type": "HTML_ENTITY_DECODE"},
+              {"Priority": 2, "Type": "LOWERCASE"}
+            ]
+          }
+        },
+        {
+          "RegexMatchStatement": {
+            "RegexString": "javascript\\s*:",
+            "FieldToMatch": {"AllQueryArguments": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"},
+              {"Priority": 1, "Type": "HTML_ENTITY_DECODE"},
+              {"Priority": 2, "Type": "LOWERCASE"},
+              {"Priority": 3, "Type": "REMOVE_NULLS"}
+            ]
+          }
+        },
+        {
+          "RegexMatchStatement": {
+            "RegexString": "data\\s*:\\s*text/html",
+            "FieldToMatch": {"AllQueryArguments": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"},
+              {"Priority": 1, "Type": "LOWERCASE"}
+            ]
+          }
+        },
+        {
+          "RegexMatchStatement": {
+            "RegexString": "<\\s*script[^>]*>",
+            "FieldToMatch": {"AllQueryArguments": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"},
+              {"Priority": 1, "Type": "HTML_ENTITY_DECODE"},
+              {"Priority": 2, "Type": "LOWERCASE"}
+            ]
+          }
+        },
+        {
+          "RegexMatchStatement": {
+            "RegexString": "<\\s*iframe[^>]*>",
+            "FieldToMatch": {"AllQueryArguments": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"},
+              {"Priority": 1, "Type": "HTML_ENTITY_DECODE"},
+              {"Priority": 2, "Type": "LOWERCASE"}
+            ]
+          }
+        },
+        {
+          "RegexMatchStatement": {
+            "RegexString": "<\\s*object[^>]*>",
+            "FieldToMatch": {"AllQueryArguments": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"},
+              {"Priority": 1, "Type": "HTML_ENTITY_DECODE"},
+              {"Priority": 2, "Type": "LOWERCASE"}
+            ]
+          }
+        },
+        {
+          "RegexMatchStatement": {
+            "RegexString": "<\\s*embed[^>]*>",
+            "FieldToMatch": {"AllQueryArguments": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"},
+              {"Priority": 1, "Type": "HTML_ENTITY_DECODE"},
+              {"Priority": 2, "Type": "LOWERCASE"}
+            ]
+          }
+        },
+        {
+          "RegexMatchStatement": {
+            "RegexString": "eval\\s*\\(",
+            "FieldToMatch": {"AllQueryArguments": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"},
+              {"Priority": 1, "Type": "LOWERCASE"}
+            ]
+          }
+        },
+        {
+          "RegexMatchStatement": {
+            "RegexString": "expression\\s*\\(",
+            "FieldToMatch": {"AllQueryArguments": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"},
+              {"Priority": 1, "Type": "LOWERCASE"}
+            ]
+          }
+        },
+        {
+          "ByteMatchStatement": {
+            "SearchString": "fromcharcode",
+            "FieldToMatch": {"AllQueryArguments": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"},
+              {"Priority": 1, "Type": "LOWERCASE"}
+            ],
+            "PositionalConstraint": "CONTAINS"
+          }
+        }
+      ]
+    }
+  },
+  "Action": {"Block": {}},
+  "VisibilityConfig": {
+    "SampledRequestsEnabled": true,
+    "CloudWatchMetricsEnabled": true,
+    "MetricName": "AdvancedXSS"
+  }
+}

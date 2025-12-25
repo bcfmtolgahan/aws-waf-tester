@@ -1,0 +1,46 @@
+{
+  "Name": "FileUploadProtection",
+  "Priority": 116,
+  "Statement": {
+    "OrStatement": {
+      "Statements": [
+        {
+          "RegexMatchStatement": {
+            "RegexString": "\\.(exe|dll|bat|cmd|sh|ps1|vbs|js|jar|war|ear|jsp|aspx|php|phtml|cgi|pl)($|\\?|%00)",
+            "FieldToMatch": {"UriPath": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"},
+              {"Priority": 1, "Type": "LOWERCASE"}
+            ]
+          }
+        },
+        {
+          "ByteMatchStatement": {
+            "SearchString": "MZ",
+            "FieldToMatch": {"Body": {"OversizeHandling": "CONTINUE"}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "NONE"}
+            ],
+            "PositionalConstraint": "STARTS_WITH"
+          }
+        },
+        {
+          "RegexMatchStatement": {
+            "RegexString": "\\.(jpeg|jpg|png|gif|pdf)\\.(exe|php|jsp|asp)",
+            "FieldToMatch": {"UriPath": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"},
+              {"Priority": 1, "Type": "LOWERCASE"}
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "Action": {"Block": {}},
+  "VisibilityConfig": {
+    "SampledRequestsEnabled": true,
+    "CloudWatchMetricsEnabled": true,
+    "MetricName": "FileUploadProtection"
+  }
+}

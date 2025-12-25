@@ -1,0 +1,74 @@
+{
+  "Name": "SSRFAdvanced",
+  "Priority": 114,
+  "Statement": {
+    "OrStatement": {
+      "Statements": [
+        {
+          "RegexMatchStatement": {
+            "RegexString": "(file://|dict://|gopher://|ftp://|tftp://|ldap://|ssh://)",
+            "FieldToMatch": {"AllQueryArguments": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"},
+              {"Priority": 1, "Type": "LOWERCASE"}
+            ]
+          }
+        },
+        {
+          "RegexMatchStatement": {
+            "RegexString": "(0x7f\\.0\\.0\\.1|0x7f000001|2130706433|017700000001|0177\\.0\\.0\\.1)",
+            "FieldToMatch": {"AllQueryArguments": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"},
+              {"Priority": 1, "Type": "LOWERCASE"}
+            ]
+          }
+        },
+        {
+          "RegexMatchStatement": {
+            "RegexString": "(\\[::|\\[::1\\]|\\[0:0:0:0:0:0:0:1\\])",
+            "FieldToMatch": {"AllQueryArguments": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"}
+            ]
+          }
+        },
+        {
+          "RegexMatchStatement": {
+            "RegexString": "(10\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}|172\\.(1[6-9]|2[0-9]|3[0-1])\\.\\d{1,3}\\.\\d{1,3}|192\\.168\\.\\d{1,3}\\.\\d{1,3})",
+            "FieldToMatch": {"AllQueryArguments": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"}
+            ]
+          }
+        },
+        {
+          "RegexMatchStatement": {
+            "RegexString": "metadata\\.azure\\.com|metadata\\.google\\.internal|ecs\\.amazonaws\\.com",
+            "FieldToMatch": {"AllQueryArguments": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"},
+              {"Priority": 1, "Type": "LOWERCASE"}
+            ]
+          }
+        },
+        {
+          "ByteMatchStatement": {
+            "SearchString": "@",
+            "FieldToMatch": {"AllQueryArguments": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"}
+            ],
+            "PositionalConstraint": "CONTAINS"
+          }
+        }
+      ]
+    }
+  },
+  "Action": {"Block": {}},
+  "VisibilityConfig": {
+    "SampledRequestsEnabled": true,
+    "CloudWatchMetricsEnabled": true,
+    "MetricName": "SSRFAdvanced"
+  }
+}

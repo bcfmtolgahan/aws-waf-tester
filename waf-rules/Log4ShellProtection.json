@@ -1,0 +1,61 @@
+{
+  "Name": "Log4ShellProtection",
+  "Priority": 113,
+  "Statement": {
+    "OrStatement": {
+      "Statements": [
+        {
+          "RegexMatchStatement": {
+            "RegexString": "\\$\\{jndi:",
+            "FieldToMatch": {"AllQueryArguments": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"},
+              {"Priority": 1, "Type": "LOWERCASE"},
+              {"Priority": 2, "Type": "REMOVE_NULLS"}
+            ]
+          }
+        },
+        {
+          "RegexMatchStatement": {
+            "RegexString": "\\$\\{jndi:",
+            "FieldToMatch": {
+              "SingleHeader": {"Name": "user-agent"}
+            },
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"},
+              {"Priority": 1, "Type": "LOWERCASE"}
+            ]
+          }
+        },
+        {
+          "RegexMatchStatement": {
+            "RegexString": "\\$\\{jndi:",
+            "FieldToMatch": {
+              "SingleHeader": {"Name": "referer"}
+            },
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"},
+              {"Priority": 1, "Type": "LOWERCASE"}
+            ]
+          }
+        },
+        {
+          "RegexMatchStatement": {
+            "RegexString": "\\$\\{jndi:",
+            "FieldToMatch": {"Body": {"OversizeHandling": "CONTINUE"}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"},
+              {"Priority": 1, "Type": "LOWERCASE"}
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "Action": {"Block": {}},
+  "VisibilityConfig": {
+    "SampledRequestsEnabled": true,
+    "CloudWatchMetricsEnabled": true,
+    "MetricName": "Log4Shell"
+  }
+}

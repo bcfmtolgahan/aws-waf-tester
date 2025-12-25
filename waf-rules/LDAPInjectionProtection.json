@@ -1,0 +1,45 @@
+{
+  "Name": "LDAPInjectionProtection",
+  "Priority": 108,
+  "Statement": {
+    "OrStatement": {
+      "Statements": [
+        {
+          "RegexMatchStatement": {
+            "RegexString": "\\(\\||\\(&|\\(\\!",
+            "FieldToMatch": {"QueryString": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"}
+            ]
+          }
+        },
+        {
+          "RegexMatchStatement": {
+            "RegexString": "\\*\\)\\(|\\)\\(",
+            "FieldToMatch": {"QueryString": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"}
+            ]
+          }
+        },
+        {
+          "ByteMatchStatement": {
+            "SearchString": "objectclass=*",
+            "FieldToMatch": {"QueryString": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"},
+              {"Priority": 1, "Type": "LOWERCASE"}
+            ],
+            "PositionalConstraint": "CONTAINS"
+          }
+        }
+      ]
+    }
+  },
+  "Action": {"Block": {}},
+  "VisibilityConfig": {
+    "SampledRequestsEnabled": true,
+    "CloudWatchMetricsEnabled": true,
+    "MetricName": "LDAPInjection"
+  }
+}

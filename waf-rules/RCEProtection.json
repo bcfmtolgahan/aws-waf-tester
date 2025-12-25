@@ -1,0 +1,65 @@
+{
+  "Name": "RCEProtection",
+  "Priority": 103,
+  "Statement": {
+    "OrStatement": {
+      "Statements": [
+        {
+          "RegexMatchStatement": {
+            "RegexString": "(system|shell_exec|exec|passthru|popen|proc_open|pcntl_exec)\\s*\\(",
+            "FieldToMatch": {"AllQueryArguments": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"},
+              {"Priority": 1, "Type": "LOWERCASE"}
+            ]
+          }
+        },
+        {
+          "RegexMatchStatement": {
+            "RegexString": "(eval|assert|preg_replace.*\\/e|create_function|call_user_func|array_map)",
+            "FieldToMatch": {"AllQueryArguments": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"},
+              {"Priority": 1, "Type": "LOWERCASE"}
+            ]
+          }
+        },
+        {
+          "RegexMatchStatement": {
+            "RegexString": "(include|require|include_once|require_once)\\s*(\\(|.*\\.\\./|.*php://|.*data://)",
+            "FieldToMatch": {"AllQueryArguments": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"},
+              {"Priority": 1, "Type": "LOWERCASE"}
+            ]
+          }
+        },
+        {
+          "RegexMatchStatement": {
+            "RegexString": "(php://input|php://filter|php://output|data://|expect://|zip://|phar://)",
+            "FieldToMatch": {"AllQueryArguments": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"},
+              {"Priority": 1, "Type": "LOWERCASE"}
+            ]
+          }
+        },
+        {
+          "RegexMatchStatement": {
+            "RegexString": "\\(\\)\\s*\\{\\s*:;\\s*\\};",
+            "FieldToMatch": {"AllQueryArguments": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"}
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "Action": {"Block": {}},
+  "VisibilityConfig": {
+    "SampledRequestsEnabled": true,
+    "CloudWatchMetricsEnabled": true,
+    "MetricName": "RCEProtection"
+  }
+}

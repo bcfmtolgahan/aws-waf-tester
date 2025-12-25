@@ -1,0 +1,36 @@
+{
+  "Name": "AdvancedPathTraversal",
+  "Priority": 125,
+  "Statement": {
+    "OrStatement": {
+      "Statements": [
+        {
+          "RegexMatchStatement": {
+            "RegexString": "\\.\\./|\\.\\.\\\\/|\\.\\.\\\\\\\\'",
+            "FieldToMatch": {"UriPath": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"},
+              {"Priority": 1, "Type": "URL_DECODE"}
+            ]
+          }
+        },
+        {
+          "RegexMatchStatement": {
+            "RegexString": "/etc/passwd|/etc/shadow|c:\\\\\\\\windows",
+            "FieldToMatch": {"QueryString": {}},
+            "TextTransformations": [
+              {"Priority": 0, "Type": "URL_DECODE"},
+              {"Priority": 1, "Type": "LOWERCASE"}
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "Action": {"Block": {}},
+  "VisibilityConfig": {
+    "SampledRequestsEnabled": true,
+    "CloudWatchMetricsEnabled": true,
+    "MetricName": "AdvancedPathTraversal"
+  }
+}

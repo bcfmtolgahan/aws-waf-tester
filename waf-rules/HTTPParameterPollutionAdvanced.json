@@ -1,0 +1,19 @@
+{
+  "Name": "HTTPParameterPollutionAdvanced",
+  "Priority": 120,
+  "Statement": {
+    "RegexMatchStatement": {
+      "RegexString": "([?&][^=]+=[^&]*&[^=]+=)",
+      "FieldToMatch": { "QueryString": {} },
+      "TextTransformations": [
+        { "Priority": 0, "Type": "NONE" }
+      ]
+    }
+  },
+  "Action": { "Block": {} },
+  "VisibilityConfig": {
+    "SampledRequestsEnabled": true,
+    "CloudWatchMetricsEnabled": true,
+    "MetricName": "HPPAdvanced"
+  }
+}

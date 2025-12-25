@@ -1,0 +1,20 @@
+{
+  "Name": "HTTPParameterPollution",
+  "Priority": 109,
+  "Statement": {
+    "SizeConstraintStatement": {
+      "FieldToMatch": {"QueryString": {}},
+      "ComparisonOperator": "GT",
+      "Size": 8192,
+      "TextTransformations": [
+        {"Priority": 0, "Type": "URL_DECODE"}
+      ]
+    }
+  },
+  "Action": {"Block": {}},
+  "VisibilityConfig": {
+    "SampledRequestsEnabled": true,
+    "CloudWatchMetricsEnabled": true,
+    "MetricName": "HPPAttacks"
+  }
+}

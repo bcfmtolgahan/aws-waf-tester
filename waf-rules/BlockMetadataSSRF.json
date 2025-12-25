@@ -1,0 +1,21 @@
+{
+  "Name": "BlockMetadataSSRF",
+  "Priority": 10,
+  "Statement": {
+    "RegexMatchStatement": {
+      "RegexString": "(169\\.254\\.169\\.254|169\\.254\\.170\\.2|100\\.100\\.100\\.200|127\\.0\\.0\\.1|localhost|\\[::1\\])",
+      "FieldToMatch": { "Body": { "OversizeHandling": "CONTINUE" } },
+      "TextTransformations": [
+        { "Priority": 0, "Type": "URL_DECODE" },
+        { "Priority": 1, "Type": "URL_DECODE_UNI" },
+        { "Priority": 2, "Type": "LOWERCASE" }
+      ]
+    }
+  },
+  "Action": { "Block": {} },
+  "VisibilityConfig": {
+    "SampledRequestsEnabled": true,
+    "CloudWatchMetricsEnabled": true,
+    "MetricName": "BlockMetadataSSRF"
+  }
+}

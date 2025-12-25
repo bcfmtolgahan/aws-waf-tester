@@ -1,0 +1,27 @@
+{
+  "Name": "RateLimitSuspiciousClients",
+  "Priority": 30,
+  "Statement": {
+    "RateBasedStatement": {
+      "Limit": 300,
+      "AggregateKeyType": "IP",
+      "ScopeDownStatement": {
+        "RegexMatchStatement": {
+          "RegexString": "(union\\s+select|\\.\\./|169\\.254\\.169\\.254|<\\s*script|%3c\\s*script|sleep\\s*\\()",
+          "FieldToMatch": { "QueryString": {} },
+          "TextTransformations": [
+            { "Priority": 0, "Type": "URL_DECODE" },
+            { "Priority": 1, "Type": "URL_DECODE_UNI" },
+            { "Priority": 2, "Type": "LOWERCASE" }
+          ]
+        }
+      }
+    }
+  },
+  "Action": { "Block": {} },
+  "VisibilityConfig": {
+    "SampledRequestsEnabled": true,
+    "CloudWatchMetricsEnabled": true,
+    "MetricName": "RateLimitSuspiciousClients"
+  }
+}

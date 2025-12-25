@@ -1,0 +1,21 @@
+{
+  "Name": "MaliciousUserAgents",
+  "Priority": 106,
+  "Statement": {
+    "RegexMatchStatement": {
+      "RegexString": "sqlmap|nikto|nmap|burp|zap|acunetix|nessus|masscan",
+      "FieldToMatch": {
+        "SingleHeader": {"Name": "user-agent"}
+      },
+      "TextTransformations": [
+        {"Priority": 0, "Type": "LOWERCASE"}
+      ]
+    }
+  },
+  "Action": {"Block": {}},
+  "VisibilityConfig": {
+    "SampledRequestsEnabled": true,
+    "CloudWatchMetricsEnabled": true,
+    "MetricName": "MaliciousUserAgents"
+  }
+}

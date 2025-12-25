@@ -1,0 +1,19 @@
+{
+  "Name": "XXEProtection",
+  "Priority": 115,
+  "Statement": {
+    "RegexMatchStatement": {
+      "RegexString": "<!DOCTYPE|<!ENTITY|SYSTEM|PUBLIC|<!\\[CDATA\\[",
+      "FieldToMatch": {"Body": {"OversizeHandling": "CONTINUE"}},
+      "TextTransformations": [
+        {"Priority": 0, "Type": "LOWERCASE"}
+      ]
+    }
+  },
+  "Action": {"Block": {}},
+  "VisibilityConfig": {
+    "SampledRequestsEnabled": true,
+    "CloudWatchMetricsEnabled": true,
+    "MetricName": "XXEProtection"
+  }
+}

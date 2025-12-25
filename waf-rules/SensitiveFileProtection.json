@@ -1,0 +1,19 @@
+{
+  "Name": "SensitiveFileProtection",
+  "Priority": 140,
+  "Statement": {
+    "RegexMatchStatement": {
+      "RegexString": "\\.env|\\.git|\\.aws|web\\.config|\\.htaccess|\\.htpasswd|\\.sql|\\.bak|\\.swp",
+      "FieldToMatch": {"UriPath": {}},
+      "TextTransformations": [
+        {"Priority": 0, "Type": "LOWERCASE"}
+      ]
+    }
+  },
+  "Action": {"Block": {}},
+  "VisibilityConfig": {
+    "SampledRequestsEnabled": true,
+    "CloudWatchMetricsEnabled": true,
+    "MetricName": "SensitiveFileAccess"
+  }
+}
