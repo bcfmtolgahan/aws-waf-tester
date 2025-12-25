@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 """
 AWS WAF ADVANCED PENETRATION TEST FRAMEWORK
-Real-world attack scenarios with advanced bypass techniques
-Author: Security Research Team
 Version: 2.0
 """
 
